@@ -527,7 +527,24 @@ Repeat the process with smaller sample size, such as `n = 10`, and smaller repea
 
 ```{r}
 # TODO
+task_2 <- replicate(
+  200,
+  bellevue_after2020 %>%
+    sample_n(10, replace = TRUE) %>%
+    summarise(avg_price = mean(sale_price)) %>%
+    pull(avg_price)
+)
+
+hist(
+  task_2,
+  breaks = 50,
+  main = "Sampling Distribution of Mean Sale Price (n = 10)",
+  xlab = "Sample Mean Sale Price (USD)"
+)
+abline(v = sale_price_mean, col = "red", lwd = 2)
 ```
+
+The histogram with the larger sample has a narrower distribution that stays closer to the mean, while the one with the smaller sample is wider and more spread out. As sample size increases, the sample means vary less and the distribution becomes more normal, which is exactly what the Central Limit Theorem describes.
 
 ### 📚 TODO: Explore More
 
@@ -551,7 +568,28 @@ So far, we've learned a lots functions, please use as many as possible to explor
 
 ```{r}
 # TODO
+task_3 <- kingco_sales %>%
+  select(city, sale_price, beds) %>%
+  filter(
+    city == "SEATTLE",
+    beds > 0 # was getting Inf since there were 0 values
+    ) %>%
+  mutate(price_per_bed = sale_price/beds)
+task_3
+
+task_3 %>%
+  arrange(desc(price_per_bed)) %>%
+  slice_max(order_by = price_per_bed, n = 5)
+
+task_3 %>%  
+  summarise(
+    avg_ppb = mean(price_per_bed, na.rm = TRUE),
+    max_ppb = max(price_per_bed, na.rm = TRUE),
+    min_ppb = min(price_per_bed, na.rm = TRUE),
+    median_ppb = median(price_per_bed, na.rm = TRUE)
+  )
 ```
+The average price per bedroom in Seattle is around $216,000, and the median is $175,000. When the average is so much greater than the median, that indicates that there are a few very expensive properties that are skewing the average to the right/upward. The price per bedroom metric has a wide range in Seattle and the top 5 properties are all high priced homes with only a few bedrooms, so that also inflates the metric. Overall, most homes fall in a moderate range, and there are a small number of significant luxury outliers.
 
 ### 📚 TODO: Using GitHub
 
