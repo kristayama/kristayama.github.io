@@ -528,17 +528,66 @@ Yes
 Using [the National Mortgage Database (NMBD)](https://www.fhfa.gov/data/national-mortgage-database-aggregate-statistics) conduct some visualization, such as histogram, boxplot, CDF, or scatter plot. I suggest either looking at the *Outstanding Residential Mortgage Statistics for States* or *Residential Mortgage Performance Statistics for States*. Be sure to review the technical documentation to understand what the statistics represent. You should: 
 
 1. Skim the data and report basic summary statistics such as mean, median, min/max, 25th/75th percentiles, for both Washington State and the rest of the US (exclude Washington State). 
-1. The dataset you downloaded is likely in long format — where each observation occupies one row. Please convert it into wide format. However, when creating visualizations in ggplot2, continue using the long-format data, since it works best with the grammar of graphics.
+2. The dataset you downloaded is likely in long format — where each observation occupies one row. Please convert it into wide format. However, when creating visualizations in ggplot2, continue using the long-format data, since it works best with the grammar of graphics.
     - Report the number of rows and columns before and after pivoting.
-1. Create 3 ~ 4 diagrams that would make sense as well as tell an interesting story. For example, you may want to connect state-level statistics from ACS with the NMDB data (make sure you are comparing data from the same year). 
-1. Add one paragraph explaining your results and charts.
+3. Create 3 ~ 4 diagrams that would make sense as well as tell an interesting story. For example, you may want to connect state-level statistics from ACS with the NMDB data (make sure you are comparing data from the same year). 
+4. Add one paragraph explaining your results and charts.
 
 ```{r}
-# TODO
+# TODO pt 1
 data <- read_csv("nmdb-outstanding-mortgage-statistics-states-quarterly.csv")
 skim(data)
+data %>%
+  filter(GEOID == "WA") %>%
+  summary()
+data %>%
+  filter(!GEOID == "WA") %>%
+  summary()
 ```
-According to the [Data Dictionary and Technical Notes](https://www.fhfa.gov/document/NMDB-Aggregate-Statistics-Data-Dictionary-Technical-Notes.pdf), the dataset includes two analysis variables, VALUE1 and VALUE2, where VALUE1
+According to the [Data Dictionary and Technical Notes](https://www.fhfa.gov/document/NMDB-Aggregate-Statistics-Data-Dictionary-Technical-Notes.pdf), the dataset includes two analysis variables, VALUE1 and VALUE2, where VALUE1 represents averages or totals based on the number of mortgages, giving each loan equal weight, while VALUE2 represents averages or totals based on the dollar amount of the loans, giving more weight to larger mortgages.This means that VALUE1 shows trends across all loans equally, while VALUE2 highlights patterns driven by the size of the mortgage balances.
+
+1. In Washington, there are relatively small numbers of active mortgages and loan balances, with a median VALUE1 of 15.8 and median VALUE2 of 13.4. However the mean values are 114.6 and 48.8, respectively, which indicates a right-skewed distribution.
+Compared to the rest of the states, Washington's medians and quartiles are slightly lower while the maximum mortgage counts are high, meaning that while most areas in Washington have relatively few mortgages, a small number of areas have very high mortgage counts that pull the maximum and mean values upward.
+Overall, both Washington and the rest of the country show that most mortgages are moderate in size, but there are a few large loans that significantly impact the averages.
+
+2. The dataset already has VALUE1 and VALUE2 as separate columns for each state and quarter. Each row represents a unique combination of location and time, so the data is effectively in wide format. Therefore, no further pivoting is necessary.
+
+
+
+```{r}
+# TODO pt 3, diagrams
+
+#VALUE1 histogram
+ggplot(data, aes(x = VALUE1)) +
+  geom_histogram(binwidth = 10, fill = "white", color = "black") +
+  labs(title = "Distribution of Mortgage Counts Across All States",
+       x = "VALUE1", y = "Frequency") +
+  theme_minimal()
+
+#VALUE2 histogram
+ggplot(data, aes(x = VALUE2)) +
+  geom_histogram(binwidth = 10, fill = "white", color = "black") +
+  labs(title = "Distribution of Mortgage Counts Across All States",
+       x = "VALUE2", y = "Frequency") +
+  theme_minimal()
+
+# VALUE1 vs VALUE2 scatterplot
+ggplot(data, aes(x = VALUE1, y = VALUE2)) +
+  geom_point(alpha = 0.5, color = "red") +
+  labs(title = "Relationship Between Mortgage Count and Loan Balance",
+       x = "VALUE1 (Mortgage Count)", y = "VALUE2 (Loan Balance)") +
+  theme_minimal()
+
+#2024 Bar Chart
+ggplot(data %>% filter(YEAR == 2024), 
+       aes(x = reorder(GEONAME, VALUE1), y = VALUE1)) +
+  geom_col(fill = "skyblue") +
+  labs(title = "Mortgage Counts by State in 2024",
+       x = "State", y = "VALUE1 (Mortgage Count)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
 
 ## Acknowledgement
 
