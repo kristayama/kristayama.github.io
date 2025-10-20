@@ -177,6 +177,11 @@ Instead of omitting those missing values, let's try filling missing values in `h
 
 ```{r}
 # TODO
+library(zoo)
+hvi_tidy <- hvi_tidy %>%
+  group_by(Date) %>%
+  mutate(HVI = na.approx(HVI, na.rm = FALSE))
+hvi_tidy
 ```
 
 ---
@@ -333,6 +338,16 @@ Please modify the above histogram code to explore different forms of histograms,
 
 ```{r}
 # TODO
+
+ggplot(data = hvi_tidy_NA_remove %>%
+         filter(Date == as.Date("2025-08-31")), aes(x = Popu2024)) +
+  geom_dotplot(
+    color = "white",  # border color
+    alpha = 0.7       # transparency
+  ) +
+  labs(title = "Histograms of Metropolitan Statistical Area Population", x = "Population (2024)", y = "Count of Cities") +
+  theme_minimal()
+
 ```
 
 
@@ -377,7 +392,29 @@ Please add additional layer of `geom_jitter()` to the above boxplot code. This l
 
 ```{r}
 # TODO
+
+ggplot(
+  data = hvi_tidy_NA_remove %>%
+    filter(Date == as.Date("2025-08-31")),
+  aes(y = Popu2024, x = Region)
+) +
+  geom_boxplot(
+    fill = "black",  
+    alpha = 0.3,       # transparency
+    width = 0.5        # box width
+  ) +
+  labs(
+    title = "Boxplot of City Population by Census Bureau Regions",
+    y = "Population (2024)",
+    x = NULL
+  ) +
+  geom_jitter(
+    width = 0.2,
+    height = 0,
+  )
+  theme_minimal()
 ```
+geom_jitter() adds individual data points and jitters them so that they are more visible. width is how much to jitter points along the X axis and height is how much to jitter points along the Y axis.
 
 #### Cumulative Distribution Functions (CDF)
 
@@ -482,6 +519,7 @@ This is not a complete list of Exploratory Data Analysis (EDA). We did not touch
 
 Carefully review and run all code chunks. You are encouraged to modify the arguments to explore how they affect the visualizations. Reply “yes” below once you have reviewed and tested them.
 
+Yes
 
 ### 📚 TODO: Explore National Mortgage Database
 
@@ -497,8 +535,10 @@ Using [the National Mortgage Database (NMBD)](https://www.fhfa.gov/data/national
 
 ```{r}
 # TODO
+data <- read_csv("nmdb-outstanding-mortgage-statistics-states-quarterly.csv")
+skim(data)
 ```
-
+According to the [Data Dictionary and Technical Notes](https://www.fhfa.gov/document/NMDB-Aggregate-Statistics-Data-Dictionary-Technical-Notes.pdf), the dataset includes two analysis variables, VALUE1 and VALUE2, where VALUE1
 
 ## Acknowledgement
 
