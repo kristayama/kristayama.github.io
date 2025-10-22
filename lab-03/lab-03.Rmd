@@ -560,6 +560,8 @@ Overall, both Washington and the rest of the country show that most mortgages ar
 #VALUE1 histogram
 ggplot(data, aes(x = VALUE1)) +
   geom_histogram(binwidth = 10, fill = "white", color = "black") +
+  xlim(0,1000) +
+  ylim(0, 80000) +
   labs(title = "Distribution of Mortgage Counts Across All States",
        x = "VALUE1", y = "Frequency") +
   theme_minimal()
@@ -567,6 +569,8 @@ ggplot(data, aes(x = VALUE1)) +
 #VALUE2 histogram
 ggplot(data, aes(x = VALUE2)) +
   geom_histogram(binwidth = 10, fill = "white", color = "black") +
+  xlim(0,1000) +
+  ylim(0,80000) +
   labs(title = "Distribution of Mortgage Counts Across All States",
        x = "VALUE2", y = "Frequency") +
   theme_minimal()
@@ -574,6 +578,7 @@ ggplot(data, aes(x = VALUE2)) +
 # VALUE1 vs VALUE2 scatterplot
 ggplot(data, aes(x = VALUE1, y = VALUE2)) +
   geom_point(alpha = 0.5, color = "red") +
+  xlim(0,2100) +
   labs(title = "Relationship Between Mortgage Count and Loan Balance",
        x = "VALUE1 (Mortgage Count)", y = "VALUE2 (Loan Balance)") +
   theme_minimal()
@@ -588,6 +593,7 @@ ggplot(data %>% filter(YEAR == 2024),
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+The first bar chart shows that mortgage activity varies widely across states, with a few states having much higher loan counts than others. The second bar chart displays total loan balances by state, following a similar pattern where states with more loans also have larger balances. Finally, the scatterplot shows a clear positive relationship between mortgage count and loan balance, meaning states with more mortgages generally hold higher total loan amounts.
 
 ## Acknowledgement
 
