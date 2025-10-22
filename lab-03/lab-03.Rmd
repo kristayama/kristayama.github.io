@@ -593,7 +593,7 @@ ggplot(data %>% filter(YEAR == 2024),
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-The first bar chart shows that mortgage activity varies widely across states, with a few states having much higher loan counts than others. The second bar chart displays total loan balances by state, following a similar pattern where states with more loans also have larger balances. Finally, the scatterplot shows a clear positive relationship between mortgage count and loan balance, meaning states with more mortgages generally hold higher total loan amounts.
+The first histogram shows that most states have smaller numbers of active mortgages, with only a few having very large counts. The second histogram shows a similar pattern for loan balances, where most states have lower totals and a few are much higher. The scatterplot shows a clear positive relationship between mortgage count and loan balance, meaning states with more loans also have higher total balances. Finally, the bar chart for 2024 highlights how larger or more populous states, like California, tend to have much higher mortgage counts than smaller ones.
 
 ## Acknowledgement
 
