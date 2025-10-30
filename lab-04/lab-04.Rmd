@@ -18,15 +18,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
----
+------------------------------------------------------------------------
 
-<!-- start of the main lab content --> 
+<!-- start of the main lab content -->
 
-In this lab, we are focusing on produce nice diagram using `ggplot2`. We will go through the production process of three plots. Please try to understand each step, including the rational, functions, and arguments. The dataset we are using is **residential real estate rental listing data**, from [RentHub](https://renthub.com) and can be accessed through [Dewey Data Platform](https://app.deweydata.io/data/renthub/rental-data-united-states-container/rental-data-united-states) (UW NetID required). 
+In this lab, we are focusing on produce nice diagram using `ggplot2`. We will go through the production process of three plots. Please try to understand each step, including the rational, functions, and arguments. The dataset we are using is **residential real estate rental listing data**, from [RentHub](https://renthub.com) and can be accessed through [Dewey Data Platform](https://app.deweydata.io/data/renthub/rental-data-united-states-container/rental-data-united-states) (UW NetID required).
 
 The due day for each lab can be found on the [course wesbite](https://www.yuehaoyu.com/data-analytics-visualization/). The submission should include Rmd, html, and any other files required to rerun the codes. From Lab 4, the use of any generative AI tool (ChatGPT, Copilot, etc.) is **allowed**. But, I still encourage you to write codes by yourself and use AI tools as a way to debug and explore new knowledge. More information about [Academic Integrity](https://www.yuehaoyu.com/data-analytics-visualization/syllabus/#academic-integrity) and [the Use of AI](https://www.yuehaoyu.com/data-analytics-visualization/syllabus/#use-of-ai).
 
----
+------------------------------------------------------------------------
 
 ## Lab 04: Visualization using R and ggplot2
 
@@ -34,20 +34,20 @@ The due day for each lab can be found on the [course wesbite](https://www.yuehao
 
 Please allow me first introduce [GitHub Copilot for RStudio](https://docs.posit.co/ide/user/ide/guide/tools/copilot.html), an AI coding assistant. GitHub Copilot is available as an opt-in integration with RStudio. Because of the rapid development of AI, tools like Copilot, OpenAI's GPT, Claude are becoming common in data science workflows. It has dramatically lowered the barrier to entry for data analysis and visualization across industries. As a student, we can use it freely!
 
-1. Open [GitHub Education](https://github.com/education)and click `Join GitHub Education`.
-2. Log in your GitHub account. 
-3. Under "GitHub Education", click `Start an application`.
-4. Complete the form, then click `Submit application`.
-5. Once your application is approved, you will receive an Email. 
-6. Open `Edit - Settings` in RStudio, you can see `Copilot` on the left bar.
-7. `Enable GitHub Copilot`, then `Sign in`.
-8. Authorize RStudio to access your GitHub account.
+1.  Open [GitHub Education](https://github.com/education)and click `Join GitHub Education`.
+2.  Log in your GitHub account.
+3.  Under "GitHub Education", click `Start an application`.
+4.  Complete the form, then click `Submit application`.
+5.  Once your application is approved, you will receive an Email.
+6.  Open `Edit - Settings` in RStudio, you can see `Copilot` on the left bar.
+7.  `Enable GitHub Copilot`, then `Sign in`.
+8.  Authorize RStudio to access your GitHub account.
 
 You can also use other AI services, such as [Gemini from Google](https://gemini.google.com/), [ChatGPT from OpenAI](https://chatgpt.com/), or [Copilot from Microsoft](https://copilot.microsoft.com). Note: Microsoft Copilot with [commercial data protection](https://uwconnect.uw.edu/it?id=kb_article_view&sysparm_article=KB0034403) is enabled for UW faculty, staff, and students.
 
-### Data Preparation 
+### Data Preparation
 
-RentHub provides us residential real estate rental listing data, including pricing, property information, location, and more from 2014 to present. The whole dataset is huge (over 100 GB). Therefore, we only select all data for the State of Washington during 2019-01-01 to 2024-12-31. Note: the time refers to when RentHub collected the data, rather than when the listing was originally posted. You can access the whole data through [Dewey Data Platform](https://app.deweydata.io/data/renthub/rental-data-united-states-container/rental-data-united-states) (UW NetID required). 
+RentHub provides us residential real estate rental listing data, including pricing, property information, location, and more from 2014 to present. The whole dataset is huge (over 100 GB). Therefore, we only select all data for the State of Washington during 2019-01-01 to 2024-12-31. Note: the time refers to when RentHub collected the data, rather than when the listing was originally posted. You can access the whole data through [Dewey Data Platform](https://app.deweydata.io/data/renthub/rental-data-united-states-container/rental-data-united-states) (UW NetID required).
 
 ```{r}
 # load necessary packages
@@ -56,7 +56,7 @@ library(ggplot2)
 library(skimr)
 ```
 
-Because the dataset is large and cannot be stored in GitHub, please [download it through Dropbox](https://www.dropbox.com/scl/fi/oehagch9ivooesndaigq3/rental_data_wa.csv.zip?rlkey=h3b2krogfjj2mvzmjucg0sp2y&dl=0) and put the `rental_data_wa.csv` file within your lab 4 folder. 
+Because the dataset is large and cannot be stored in GitHub, please [download it through Dropbox](https://www.dropbox.com/scl/fi/oehagch9ivooesndaigq3/rental_data_wa.csv.zip?rlkey=h3b2krogfjj2mvzmjucg0sp2y&dl=0) and put the `rental_data_wa.csv` file within your lab 4 folder.
 
 ```{r cache=TRUE}
 # load the rental listing data, it may take a while because its size
@@ -74,32 +74,35 @@ dim(rental)
 ```
 
 <details>
+
 <summary>**Click to Read Data Dictionary**</summary>
-- ID:	Unique identification number associated with each listing observation
-- SCRAPED_TIMESTAMP: Data	collected time
-- DATE_POSTED:	Date listing observation was posted on source
-- CITY:	City in which listing observation is located
-- NEIGHBORHOOD:	Neighborhood
-- ZIP:	Property zip
-- ADDRESS:	Address of building, unit, or home referred to in listing observation
-- LATITUDE:	Property Latitude
-- LONGITUDE:	Property Longitude
-- COMPANY:	Property manager or owner name as listed on source
-- BUILDING_TYPE:	Type of property referenced in listing observation
-- BEDS:	Number of bedrooms in listing observation   
-- BATHS:	Number of bathrooms in listing observation
-- SQFT:	Approximate square footage in a listing observation
-- RENT_PRICE:	Advertised rent price for a listing observation
-- GRANITE:	The term "granite" is mentioned within the marketing description
-- STAINLESS:	The term "stainless" is mentioned within the marketing description
-- POOL: The term "pool" is mentioned within the marketing description
-- GYM:	The term "gym" or "fitness center" or "health club" is mentioned within the marketing description
-- DOORMAN:	The terms "doorman" or "attended lobby" is mentioned within the marketing description
-- FURNISHED: The term "furnished" is mentioned within the marketing description
-- LAUNDRY:	The terms "laundry" or "washer" or "washer/dryer" or "W/D" is mentioned within the marketing description
-- GARAGE:	The term "garage" is mentioned within the marketing description
-- GARAGE_COUNT:	Number of garage
-- CLUBHOUSE:	The term "clubhouse" is mentioned within the marketing description
+
+-   ID: Unique identification number associated with each listing observation
+-   SCRAPED_TIMESTAMP: Data collected time
+-   DATE_POSTED: Date listing observation was posted on source
+-   CITY: City in which listing observation is located
+-   NEIGHBORHOOD: Neighborhood
+-   ZIP: Property zip
+-   ADDRESS: Address of building, unit, or home referred to in listing observation
+-   LATITUDE: Property Latitude
+-   LONGITUDE: Property Longitude
+-   COMPANY: Property manager or owner name as listed on source
+-   BUILDING_TYPE: Type of property referenced in listing observation
+-   BEDS: Number of bedrooms in listing observation\
+-   BATHS: Number of bathrooms in listing observation
+-   SQFT: Approximate square footage in a listing observation
+-   RENT_PRICE: Advertised rent price for a listing observation
+-   GRANITE: The term "granite" is mentioned within the marketing description
+-   STAINLESS: The term "stainless" is mentioned within the marketing description
+-   POOL: The term "pool" is mentioned within the marketing description
+-   GYM: The term "gym" or "fitness center" or "health club" is mentioned within the marketing description
+-   DOORMAN: The terms "doorman" or "attended lobby" is mentioned within the marketing description
+-   FURNISHED: The term "furnished" is mentioned within the marketing description
+-   LAUNDRY: The terms "laundry" or "washer" or "washer/dryer" or "W/D" is mentioned within the marketing description
+-   GARAGE: The term "garage" is mentioned within the marketing description
+-   GARAGE_COUNT: Number of garage
+-   CLUBHOUSE: The term "clubhouse" is mentioned within the marketing description
+
 </details>
 
 ```{r cache=TRUE}
@@ -117,10 +120,10 @@ Between 2019 and 2024, one of the most significant global events was the COVID-1
 
 First, we filter the rental dataset to apartment buildings only and add four useful variables:
 
-- `month`: the posting month of each listing, for time-series analysis
-- `bed_group`: bedroom categories, for comparing rent trends by unit size
-- `amenities_sum`: the total number of key amenities 
-- `quality_group`: as the indicator of the quality level based on the values of `amenities_sum`
+-   `month`: the posting month of each listing, for time-series analysis
+-   `bed_group`: bedroom categories, for comparing rent trends by unit size
+-   `amenities_sum`: the total number of key amenities
+-   `quality_group`: as the indicator of the quality level based on the values of `amenities_sum`
 
 ```{r}
 rental_apt <- rental %>%
@@ -169,9 +172,9 @@ apt_rent_by_month <- rental_apt %>%
 
 Let's produce the first plot about monthly rent trends for apartment buildings, separated by bedroom type and apartment quality. We have **four variables**: time, average rent, bedroom group, apartment quality. We need to determine the aesthetics (channels/encoding variables).
 
-Recall the *Expressiveness + Effectiveness* we discussed: positions are always the best, so we put two important variables (time, average rent) as x and y. 
+Recall the *Expressiveness + Effectiveness* we discussed: positions are always the best, so we put two important variables (time, average rent) as x and y.
 
-Apartment quality and bedroom group are ordinal categorical variables. We need to think about whether we want to preserve this order. If preserving order is not essential for our analytically purpose, we may treat them simply as nominal categories. In the current design, apartment quality (`quality_group`) is represented by color, while bedroom type (`bed_group`) is shown through faceting. 
+Apartment quality and bedroom group are ordinal categorical variables. We need to think about whether we want to preserve this order. If preserving order is not essential for our analytically purpose, we may treat them simply as nominal categories. In the current design, apartment quality (`quality_group`) is represented by color, while bedroom type (`bed_group`) is shown through faceting.
 
 ```{r}
 ggplot(apt_rent_by_month, aes(x = month, y = mean_rent, color = quality_group)) +
@@ -187,7 +190,7 @@ ggplot(apt_rent_by_month, aes(x = month, y = mean_rent, color = quality_group)) 
   theme(legend.position = "bottom")
 ```
 
-In general, the figure looks quite good after some adjustments if our goal is simply to show overall rent trends. However, the key message I’d like to emphasize is the **rent resiliency** across different groups after the pandemic—that is, how quickly and strongly rents in various apartment types and quality levels recovered following the COVID-19 shock. The absolute rent levels are not particularly meaningful on their own, so we can make an adjustment by converting them into **relative rents**, measured as rent changes compared to December 2019 levels (pre-pandemic). 
+In general, the figure looks quite good after some adjustments if our goal is simply to show overall rent trends. However, the key message I’d like to emphasize is the **rent resiliency** across different groups after the pandemic—that is, how quickly and strongly rents in various apartment types and quality levels recovered following the COVID-19 shock. The absolute rent levels are not particularly meaningful on their own, so we can make an adjustment by converting them into **relative rents**, measured as rent changes compared to December 2019 levels (pre-pandemic).
 
 ```{r}
 apt_rent_rel <- apt_rent_by_month %>%
@@ -202,17 +205,17 @@ apt_rent_rel <- apt_rent_by_month %>%
   ungroup()
 ```
 
-We are going to create a relatively complicated plot and you can have a look of the final result below. To achieve that, we need many functions in `ggplot2` and other software, such PowerPoint and PhotoShop, to do final edits (like the notes inside). 
+We are going to create a relatively complicated plot and you can have a look of the final result below. To achieve that, we need many functions in `ggplot2` and other software, such PowerPoint and PhotoShop, to do final edits (like the notes inside).
 
 ![Washington State Monthly Apartment Rent Changes Since Covid-19](assets/rent_change_plot_final.png)
 
 #### Basic Stucture
 
-Similar as previous plot. We started from the **data**: `apt_rent_rel`. We can do filter here to make sure the plot will only show the time period we want: between **December 2019** (just before the first Covid-19 case in Washington State) and **December 2022**. 
+Similar as previous plot. We started from the **data**: `apt_rent_rel`. We can do filter here to make sure the plot will only show the time period we want: between **December 2019** (just before the first Covid-19 case in Washington State) and **December 2022**.
 
-The we need to determine the **aesthetics** (channels/encoding variables), we map time to the x-axis, rent changes to the y-axis. There are two additional dimensions in the data: apartment quality (quality_group), which is represented by color, and bedroom type (bed_group), which is shown through **faceting**. 
+The we need to determine the **aesthetics** (channels/encoding variables), we map time to the x-axis, rent changes to the y-axis. There are two additional dimensions in the data: apartment quality (quality_group), which is represented by color, and bedroom type (bed_group), which is shown through **faceting**.
 
-After that, we are going to add the first **geometry**: `geom_line`. Its location is decided by the global `aes` we already defined. 
+After that, we are going to add the first **geometry**: `geom_line`. Its location is decided by the global `aes` we already defined.
 
 We also add the **labels**, including title, subtitle, x and y axis title, and the label for color group.
 
@@ -235,9 +238,9 @@ g
 
 #### Graphical Primitives
 
-We would like emphasize the line $y=0$ because it means no change compared to the beginning of the pandemic. Meanwhile, we need to let readers know the time period of the pandemic. So, we use `geom_hline()` to add a horizontal line as another layer. (Remember to check Cheatsheet, R documentation, and using `?function` when you are not familiar with a function.) 
+We would like emphasize the line $y=0$ because it means no change compared to the beginning of the pandemic. Meanwhile, we need to let readers know the time period of the pandemic. So, we use `geom_hline()` to add a horizontal line as another layer. (Remember to check Cheatsheet, R documentation, and using `?function` when you are not familiar with a function.)
 
-There is another way we can simply draw a line is [adding an **annotation** layer](https://ggplot2.tidyverse.org/reference/annotate.html). But unlike a typical `geom` function, the properties of the `geoms` are not mapped from variables of a data frame, but are instead passed in as vectors. This is useful for adding small annotations (such as text labels or a line). We add a rectangular annotation to highlight a time period and text label with the rectangular. 
+There is another way we can simply draw a line is [adding an **annotation** layer](https://ggplot2.tidyverse.org/reference/annotate.html). But unlike a typical `geom` function, the properties of the `geoms` are not mapped from variables of a data frame, but are instead passed in as vectors. This is useful for adding small annotations (such as text labels or a line). We add a rectangular annotation to highlight a time period and text label with the rectangular.
 
 ```{r}
 g_line_rec <- g +   
@@ -265,7 +268,7 @@ g_line_rec
 
 ##### Colors
 
-We can use R built-in colors (600+), you can check their names using `colors()`. 
+We can use R built-in colors (600+), you can check their names using `colors()`.
 
 We can also use *Hex colors* and *palette functions*. Hex colors are written as `#RRGGBB`, where each pair (RR, GG, BB) represents the intensity of Red, Green, and Blue in hexadecimal (from 00 to FF, i.e., 0–255). ggplot2 provides built-in palette functions that automatically generate harmonious color sets for categorical or continuous variables.
 
@@ -279,17 +282,17 @@ R also supports numeric color systems like RGB, HCL, and HSV.
 
 #### Scale
 
-Scale controls **how** data values are mapped to aesthetics (channels/encoding variables). For example, we use `color = quality_group` and by default `ggplot2` will choose some colors for that. But we can change how color encodes through `scale_color_*`. 
+Scale controls **how** data values are mapped to aesthetics (channels/encoding variables). For example, we use `color = quality_group` and by default `ggplot2` will choose some colors for that. But we can change how color encodes through `scale_color_*`.
 
-| **Aesthetic** | **Scale function** | **Controls** |
-|----------------|--------------------|---------------|
-| x-axis | `scale_x_*()` | axis range, tick marks, labels |
-| y-axis | `scale_y_*()` | axis range, tick marks, labels |
-| color | `scale_color_*()` | how color encodes categories or values |
-| fill | `scale_fill_*()` | fill colors for bars, areas, etc. |
-| size | `scale_size_*()` | point or line thickness |
-| shape | `scale_shape_*()` | point shapes |
-| alpha | `scale_alpha_*()` | transparency |
+| **Aesthetic** | **Scale function** | **Controls**                           |
+|-----------------|-------------------|-------------------------------------|
+| x-axis        | `scale_x_*()`      | axis range, tick marks, labels         |
+| y-axis        | `scale_y_*()`      | axis range, tick marks, labels         |
+| color         | `scale_color_*()`  | how color encodes categories or values |
+| fill          | `scale_fill_*()`   | fill colors for bars, areas, etc.      |
+| size          | `scale_size_*()`   | point or line thickness                |
+| shape         | `scale_shape_*()`  | point shapes                           |
+| alpha         | `scale_alpha_*()`  | transparency                           |
 
 ```{r}
 g_scale <- g_line_rec +
@@ -312,7 +315,7 @@ g_scale
 
 #### Coordinate System
 
-The coordinate system determines how data coordinates are translated to positions on the plot. We will talk about this more in the future class on mapping and geospatial data. 
+The coordinate system determines how data coordinates are translated to positions on the plot. We will talk about this more in the future class on mapping and geospatial data.
 
 ```{r}
 g_coordinate <- g_scale +
@@ -323,7 +326,7 @@ g_coordinate
 
 #### Theme
 
-Theme controls all non-data visual components, text, background, grid lines, margins, etc. 
+Theme controls all non-data visual components, text, background, grid lines, margins, etc.
 
 ##### Components
 
@@ -333,43 +336,38 @@ First, we need to know how `ggplot2` names those components:
 
 You can see there is a hierarchy among those plot components. We list some here as the example, you can read [all components of a theme](https://ggplot2.tidyverse.org/reference/theme) from its official document.
 
-- For the whole plot
-  - `element_text()`: text, plot.title, plot.subtitle, plot.caption
-  - `element_rect()`: plot.background, plot.margin
-- For x and y axis
-  - `element_text()`: axis.title.x/y, axis.text.x/y
-  - `element_line()`: axis.line.x/y, axis.ticks.x/y
-- For grid and panel
-  - `element_line()`: panel.grid; panel.grid.major, panel.grid.minor
-  - `element_rect()`: panel.border
-  - `unit()`: panel.spacing
-- For the legend
-  - `element_text()`: legend.title, legend.text
-  - `location using character/vector`: legend.position, legend.justification, legend.margin
-- For facet
-  - `element_text()`: strip.text, strip.text.x, strip.text.y
-  - `element_rect()`: strip.background
+-   For the whole plot
+    -   `element_text()`: text, plot.title, plot.subtitle, plot.caption
+    -   `element_rect()`: plot.background, plot.margin
+-   For x and y axis
+    -   `element_text()`: axis.title.x/y, axis.text.x/y
+    -   `element_line()`: axis.line.x/y, axis.ticks.x/y
+-   For grid and panel
+    -   `element_line()`: panel.grid; panel.grid.major, panel.grid.minor
+    -   `element_rect()`: panel.border
+    -   `unit()`: panel.spacing
+-   For the legend
+    -   `element_text()`: legend.title, legend.text
+    -   `location using character/vector`: legend.position, legend.justification, legend.margin
+-   For facet
+    -   `element_text()`: strip.text, strip.text.x, strip.text.y
+    -   `element_rect()`: strip.background
 
 ##### Elements
 
-There are several types of components, `ggplot2` calls them elements, such as text, line, and rectangular. For example, the line of axis is `element_line` while the title of axis is `element_text`. We remove some components through assigning them as `element_blank()`. 
+There are several types of components, `ggplot2` calls them elements, such as text, line, and rectangular. For example, the line of axis is `element_line` while the title of axis is `element_text`. We remove some components through assigning them as `element_blank()`.
 
 We change the attributes of those components (such as legend.title, axis.line) by assigning them an appropriate `element_*()` function inside `theme()`. Please refer to its official document or `?element_*()` for detailed arguments - [Theme elements](https://ggplot2.tidyverse.org/reference/element.html).
 
 ##### Complete Themes
 
-Beyond those specific theme configuration, we can start with existing complete themes by `+ theme_*()`. The one I like most is `theme_minimal()` because it is super clean. Within `theme_*()`, we can set a few argument for the whole plot: `base_family` for default font, `base_size` for default font size, for example.  
+Beyond those specific theme configuration, we can start with existing complete themes by `+ theme_*()`. The one I like most is `theme_minimal()` because it is super clean. Within `theme_*()`, we can set a few argument for the whole plot: `base_family` for default font, `base_size` for default font size, for example.
 
 ##### Theme Inheritance
 
 It is useful to know **theme inheritance** feature of `ggplot2`: theme elements inherit properties from other theme elements hierarchically. For example, there is the hierarchy for text elements:
 
-text
- ├── plot.title
- ├── plot.subtitle
- ├── axis.title
-      ├── axis.title.x / axis.title.y
- └── legend.text / legend.title
+text ├── plot.title ├── plot.subtitle ├── axis.title ├── axis.title.x / axis.title.y └── legend.text / legend.title
 
 ##### Modify our Plot using Theme
 
@@ -469,7 +467,7 @@ ggsave("rent_change_plot.png", width = 14, height = 7, dpi = 200)
 ggsave("rent_change_plot_735.png", width = 7, height = 3.5, dpi = 200)
 ```
 
-When working with ggplot2, customizing the `theme()` controls visual style — but the final output size and aspect ratio are just as important. RStudio preview **IS NOT** the actual exported figure. I will recommend that you work within a single chunk and check changes in exported figure all the time. I decided to use 14 * 7 inch at the beginning so it is perfect when I export as 14 * 7 inch. But the following figure was exported as 7 * 3.5 inch: everything squeezed together. 
+When working with ggplot2, customizing the `theme()` controls visual style — but the final output size and aspect ratio are just as important. RStudio preview **IS NOT** the actual exported figure. I will recommend that you work within a single chunk and check changes in exported figure all the time. I decided to use 14 \* 7 inch at the beginning so it is perfect when I export as 14 \* 7 inch. But the following figure was exported as 7 \* 3.5 inch: everything squeezed together.
 
 ![The Exported Figure](rent_change_plot_735.png)
 
@@ -477,10 +475,9 @@ When working with ggplot2, customizing the `theme()` controls visual style — b
 
 Not every figure — or every visual component within a figure — is best created entirely in R.
 
-While `ggplot2` is powerful for data-driven visualization, it’s not always flexible for fine-grained graphic design tasks. For example, in this plot, it is cumbersome to  adding a single line and text because we used facets. We can always combine R/`ggplot2` with other tools, like PowerPoint and Photoshop. Here, we added an explanation on pandemic and a directional line using Photoshop.
+While `ggplot2` is powerful for data-driven visualization, it’s not always flexible for fine-grained graphic design tasks. For example, in this plot, it is cumbersome to adding a single line and text because we used facets. We can always combine R/`ggplot2` with other tools, like PowerPoint and Photoshop. Here, we added an explanation on pandemic and a directional line using Photoshop.
 
 ![Washington State Monthly Apartment Rent Changes Since Covid-19](assets/rent_change_plot_final.png)
-
 
 ### 📚 TODO: Critique of Data Visualizations
 
@@ -488,58 +485,198 @@ While `ggplot2` is powerful for data-driven visualization, it’s not always fle
 
 As we learn more about data visualization, we have begun to discuss some general principles. For this section, please find an example of a visualization or infographic that impresses you- either in a good or bad way. You can refer to them to produce the plots for the following two questions (creative and deceptive visualization). Please attach the example image, give the link/source, and:
 
-1. Describe what the visualization is trying to communicate
-1. Discuss what it does and does not do well using the principles we talked about in class
-1. Comment on two visualizations posted by classmates (optional)
+1.  Describe what the visualization is trying to communicate
+2.  Discuss what it does and does not do well using the principles we talked about in class
+3.  Comment on two visualizations posted by classmates (optional)
 
 A few probing questions to think about:
 
-1. Is the data visualization static, motion, or interactive?
-1. Is it narrative or exploratory?
-1. What kind of purpose do you think it serves? How would you order its objectives (appeal, comprehension, and retention)?
-1. Does it contain the basic elements of a graph (e.g., title, axis label, encoding)? Is anything missing or not clear to the audience?
-1. What kind of encoding does it use (e.g., position, length, slope, angle, area, color hue, etc)? How effective in terms of precision of such encoding elements?
-1. What kind of organizational principles do you observe (e.g.hierarchy, unity, balance, grouping, and spacing)? Is the principle lacking in the graph?
-1. Do you think your psychological needs have all been met by this source (e.g., autonomy, relatedness, and competence)?
+1.  Is the data visualization static, motion, or interactive?
+2.  Is it narrative or exploratory?
+3.  What kind of purpose do you think it serves? How would you order its objectives (appeal, comprehension, and retention)?
+4.  Does it contain the basic elements of a graph (e.g., title, axis label, encoding)? Is anything missing or not clear to the audience?
+5.  What kind of encoding does it use (e.g., position, length, slope, angle, area, color hue, etc)? How effective in terms of precision of such encoding elements?
+6.  What kind of organizational principles do you observe (e.g.hierarchy, unity, balance, grouping, and spacing)? Is the principle lacking in the graph?
+7.  Do you think your psychological needs have all been met by this source (e.g., autonomy, relatedness, and competence)?
 
 ### 📚 TODO: Creative Visualization
 
-**8 points** 
+**8 points**
 
-In this task, you will select one central theme or message and explore how different visual design choices can communicate it. You are welcome to use the rental dataset or other datasets you are interested in. 
+In this task, you will select one central theme or message and explore how different visual design choices can communicate it. You are welcome to use the rental dataset or other datasets you are interested in.
 
-- **What to do**
-  - think about actions/targets of visualization.
-  - choose different visualization idioms rather than line plots whenever possible. Reference website [A](https://datavizproject.com/) and [B](、https://www.data-to-viz.com/).
-  - experiment with as many `ggplot2` functions, arguments, and customization features as possible — such as different geometries, scales, themes, annotations, and color schemes — to creatively express your message.
-  - add clear code comments to explain what it does and why you used it, so that others can follow your reasoning. 
-  - demonstrate both technical variety (breadth of ggplot usage) and conceptual clarity (a clear story or insight). 
-  - be bold, try new features, and document your process carefully, creativity and transparency matter more than perfection here.
-  - short write-up stating the message, key design choices, and what the viewer should notice.
+-   **What to do**
+    -   think about actions/targets of visualization.
+    -   choose different visualization idioms rather than line plots whenever possible. Reference website [A](https://datavizproject.com/) and [B](、https://www.data-to-viz.com/).
+    -   experiment with as many `ggplot2` functions, arguments, and customization features as possible — such as different geometries, scales, themes, annotations, and color schemes — to creatively express your message.
+    -   add clear code comments to explain what it does and why you used it, so that others can follow your reasoning.
+    -   demonstrate both technical variety (breadth of ggplot usage) and conceptual clarity (a clear story or insight).
+    -   be bold, try new features, and document your process carefully, creativity and transparency matter more than perfection here.
+    -   short write-up stating the message, key design choices, and what the viewer should notice.
+-   **Grading**
+    -   [2 pts] a clear theme or message and short write-up
+    -   [2 pts] proper usage of multiple `ggplot2` components with enough elements of a graph (such as data source)
+    -   [2 pts] well-structured codes with meaningful comments explaining arguments and choices
+    -   [2 pts] thoughtful design, effective use of color, layout, and style
 
-- **Grading**
-  - [2 pts] a clear theme or message and short write-up
-  - [2 pts] proper usage of multiple `ggplot2` components with enough elements of a graph (such as data source)
-  - [2 pts] well-structured codes with meaningful comments explaining arguments and choices
-  - [2 pts] thoughtful design, effective use of color, layout, and style
+Theme: Exploring how luxury and convenience features (granite countertops, gyms, pools, etc.) in rental listings are associated with higher advertised rent prices
+Write Up:
+For this analysis, I explored how various apartment features influence rent prices using several visualizations. The jittered boxplots for GYM and GRANITE showed that some features, like gyms, had little apparent effect on rent, while the granite plot suggested that apartments without granite sometimes had higher rents, though the difference was not substantial. The scatter plot of the total number of luxury features (LUXURY_COUNT) versus rent also revealed no strong trend; high rents were observed across all feature counts.
 
+The heatmap of average rent by feature presence was particularly informative, clearly highlighting that listings with DOORMAN, FURNISHED, GARAGE, GRANITE, and STAINLESS had noticeably higher average rents compared to those without these features. This observation was confirmed and quantified in the bar plot of average rent differences, which showed that GARAGE and FURNISHED contributed the largest increases in average rent among the selected features. Overall, these visualizations illustrate that while some amenities have little effect, a few key features meaningfully increase rent, and the combination of heatmaps and difference plots makes these relationships easy to see.
+
+Plot visualization and interpretation with help from ChatGPT
+Citation:
+OpenAI, Response to: "Help with creative ggplot2 visualizations for rental dataset assignment", ChatGPT, (Oct. 29, 2025), https://chat.openai.com/
+ (enter query into "Message ChatGPT" box).
+```{r plots!}
+# Convert Y/N to 1/0 for all feature columns
+feature_list <- c("GRANITE","STAINLESS","POOL","GYM","DOORMAN","FURNISHED","LAUNDRY","GARAGE","CLUBHOUSE")
+
+rental_binary <- rental
+
+rental_binary[feature_list] <- lapply(rental_binary[feature_list], function(x) {
+  case_when(
+    x == "Y" ~ 1,
+    x == "N" ~ 0,
+    x == NA ~ 0
+  )
+})
+
+# Create a total luxury feature count
+rental_binary <- rental_binary %>%
+  mutate(LUXURY_COUNT = GRANITE + GYM + POOL + DOORMAN + GARAGE + LAUNDRY)
+
+# Jittered boxplot: Rent by presence of gym
+ggplot(rental_binary, aes(x = factor(GYM, labels = c("No", "Yes")), y = RENT_PRICE, fill = factor(GYM))) +
+  geom_boxplot(alpha = 0.5, outlier.shape = NA) +  # hide boxplot outliers to avoid double points
+  geom_jitter(width = 0.2, alpha = 0.6, color = "red") +  # show individual data points
+  scale_fill_manual(values = c("grey", "blue")) +
+  labs(
+    title = "Impact of Gym Access on Rent Price",
+    x = "Has Gym",
+    y = "Rent Price ($)",
+    fill = "Gym"
+  ) +
+  theme_minimal()
+
+# Jittered boxplot: Rent by presence of granite countertops
+ggplot(rental_binary, aes(x = factor(GRANITE, labels = c("No", "Yes")), y = RENT_PRICE, fill = factor(GRANITE))) +
+  geom_boxplot(alpha = 0.5, outlier.shape = NA) +  # hide boxplot outliers
+  geom_jitter(width = 0.2, alpha = 0.6, color = "red") +  # show all points
+  scale_fill_manual(values = c("grey", "blue")) +
+  labs(
+    title = "Impact of Granite Countertops on Rent Price",
+    x = "Has Granite Countertops",
+    y = "Rent Price ($)",
+    fill = "Granite"
+  ) +
+  theme_minimal()
+
+# Scatter plot: Feature count vs Rent
+ggplot(rental_binary, aes(x = LUXURY_COUNT, y = RENT_PRICE, color = BEDS)) +
+  geom_point(alpha = 0.6) +
+  scale_color_viridis_c(option = "plasma") +
+  labs(
+    title = "More Amenities, Higher Rent?",
+    x = "Number of Luxury / Convenience Features",
+    y = "Rent Price ($)",
+    color = "Number of Bedrooms"
+  ) +
+  theme_classic()
+
+# Convert to long format for heatmap
+rental_long <- rental_binary %>%
+  select(RENT_PRICE, all_of(feature_list)) %>%
+  pivot_longer(cols = all_of(feature_list), names_to = "FEATURE", values_to = "PRESENT")
+
+# Compute average rent by feature presence
+avg_rent <- rental_long %>%
+  group_by(FEATURE, PRESENT) %>%
+  summarize(Avg_Rent = mean(RENT_PRICE, na.rm = TRUE))
+
+# Heatmap
+ggplot(avg_rent, aes(x = FEATURE, y = as.factor(PRESENT), fill = Avg_Rent)) +
+  geom_tile(color = "white") +
+  scale_fill_viridis_c(option = "magma") +
+  labs(
+    title = "Average Rent by Feature Presence",
+    x = "Feature",
+    y = "Present (0 = No, 1 = Yes)",
+    fill = "Average Rent ($)"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+library(dplyr)
+library(ggplot2)
+
+# Calculate average rent difference for selected features
+feature_list <- c("FURNISHED","GARAGE","DOORMAN","GRANITE","STAINLESS")
+
+rent_diff <- rental_binary %>%
+  select(RENT_PRICE, all_of(feature_list)) %>%
+  pivot_longer(cols = all_of(feature_list), names_to = "FEATURE", values_to = "PRESENT") %>%
+  group_by(FEATURE, PRESENT) %>%
+  summarize(Avg_Rent = mean(RENT_PRICE, na.rm = TRUE)) %>%
+  pivot_wider(names_from = PRESENT, values_from = Avg_Rent, names_prefix = "PRESENT_") %>%
+  mutate(DIFF = PRESENT_1 - PRESENT_0)  # difference Yes - No
+
+# Bar plot
+ggplot(rent_diff, aes(x = reorder(FEATURE, DIFF), y = DIFF, fill = DIFF > 0)) +
+  geom_col() +
+  coord_flip() +  # horizontal bars for readability
+  scale_fill_manual(values = c("red", "green"), guide = FALSE) +
+  labs(
+    title = "Increase in Rent for Listings with Specific Features",
+    x = "Feature",
+    y = "Average Rent Increase ($)"
+  ) +
+  theme_minimal()
+```
 ### 📚 TODO: Deceptive Visualization
 
-**4 points** 
+**4 points**
 
 Building on your previous figure, intentionally create a deceptive version of the same visualization — one that misleads the audience while still appearing legitimate at first glance. Your challenge is to subtly distort perception without using obvious tricks such as removing data or adding false numbers.
 
 For instance, you might manipulate scales, reorder categories, or change visual emphasis in ways that guide the viewer toward an incorrect interpretation. In your write-up, briefly reflect on what design decisions make the visualization deceptive, and how small graphical changes can influence interpretation. This exercise is meant to help you understand visual ethics and recognize how easy it is to mislead unintentionally through design.
 
-- **Grading**
-  - [3 pts] misleading in a realistic and non-obvious
-  - [1 pts] reflection on how the visualization misleads and what design decisions contributed to it
+-   **Grading**
+    -   [3 pts] misleading in a realistic and non-obvious
+    -   [1 pts] reflection on how the visualization misleads and what design decisions contributed to it
+
+```{r Deceptive visualization}
+# Rescale Avg_Rent to exaggerate differences
+avg_rent <- avg_rent %>%
+  mutate(FILL_VALUE = (Avg_Rent - min(Avg_Rent)) * 5 + min(Avg_Rent))  # stretch differences 5x
+
+ggplot(avg_rent, aes(x = FEATURE, y = as.factor(PRESENT), fill = FILL_VALUE)) +
+  geom_tile(color = "white") +
+  scale_fill_viridis_c(option = "magma") +
+  labs(
+    title = "Average Rent by Feature Presence (Exaggerated Differences)",
+    x = "Feature",
+    y = "Present (0 = No, 1 = Yes)",
+    fill = "Average Rent ($)"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+Reflection:
+For the heatmap, I stretched the color scale so that even small differences in average rent between listings with and without certain features appeared visually large. This exaggerates the perception of impact while keeping the underlying data accurate. The bright contrast draws attention to minor differences, making them seem more important than they actually are.
+This shows how subtle choices — axis scaling, color intensity, and bar size — can influence interpretation. Even without altering the actual numbers, viewers can easily be misled, highlighting the ethical responsibility of designers to present data honestly.
+
+With help from ChatGPT
+Citation:
+OpenAI, Response to: "How can I create a subtly misleading heatmap for rent features in R?", ChatGPT, (Oct. 29, 2025, 8:35 PM), https://chat.openai.com/
+ (enter query into "Message ChatGPT" box).
 
 ### 📚 TODO: Tableau Installization (optional)
 
 **0 point**
 
-Next week, we are going to use Tableau, which provides free access to students. Please try to download [Tableau for Students](https://www.tableau.com/academic/students) in advance. 
+Next week, we are going to use Tableau, which provides free access to students. Please try to download [Tableau for Students](https://www.tableau.com/academic/students) in advance.
 
 ## Acknowledgement
 
