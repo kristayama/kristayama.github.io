@@ -674,6 +674,8 @@ In the end, you may find how painful or tedious mapping can feel in R (or in any
 
 Carefully review and run all code chunks. You are encouraged to modify the arguments to explore how they affect. Reply “yes” in Canvas once you have reviewed and tested them.
 
+yes!
+
 ## Acknowledgement
 
 The materials are developed by [Haoyu Yue](www.yuehaoyu.com) based
