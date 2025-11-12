@@ -1,0 +1,458 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20252.25.1003.1601                               -->
+<workbook original-version='18.1' source-build='2025.2.4 (20252.25.1003.1601)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AnimationOnByDefault />
+    <MarkAnimation />
+    <ObjectModelEncapsulateLegacy />
+    <ObjectModelExtractV2 />
+    <ObjectModelTableType />
+    <SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <_.fcp.VConnDownstreamExtractsWithWarnings.true...VConnDownstreamExtractsWithWarnings />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='BLS CES 2015-2025 Data for Washington - WAInformation+' inline='true' name='federated.1e5qh4f0gbqusw1c4jf530kv4obr' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='CES_WAInfo' name='textscan.1oe7thv0oml4w3183xvh202pu0pe'>
+            <connection class='textscan' directory='/Users/kristayamamoto-chin/Library/CloudStorage/OneDrive-UW/AU25/RE 519/Git/kristayama.github.io/lab-06' filename='BLS CES 2015-2025 Data for Washington - WAInformation.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation name='Pivot2' type='pivot'>
+          <columns>
+            <column datatype='string' name='Pivot Field Names' />
+            <column datatype='string' name='Pivot Field Values' />
+          </columns>
+          <tag name='Pivot Field Names'>
+            <value name='[Apr]' />
+            <value name='[Aug]' />
+            <value name='[Dec]' />
+            <value name='[Feb]' />
+            <value name='[Jan]' />
+            <value name='[Jul]' />
+            <value name='[Jun]' />
+            <value name='[Mar]' />
+            <value name='[May]' />
+            <value name='[Nov]' />
+            <value name='[Oct]' />
+            <value name='[Sep]' />
+          </tag>
+          <groups>
+            <group name='Pivot Field Values'>
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Apr]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Aug]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Dec]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Feb]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Jan]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Jul]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Jun]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Mar]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[May]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Nov]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Oct]' />
+              <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Sep]' />
+            </group>
+          </groups>
+          <relation all='true' name='BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+' type='union'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='Year' />
+              <column datatype='real' name='Jan' />
+              <column datatype='real' name='Feb' />
+              <column datatype='real' name='Mar' />
+              <column datatype='real' name='Apr' />
+              <column datatype='real' name='May' />
+              <column datatype='real' name='Jun' />
+              <column datatype='real' name='Jul' />
+              <column datatype='string' name='Aug' />
+              <column datatype='real' name='Sep' />
+              <column datatype='real' name='Oct' />
+              <column datatype='real' name='Nov' />
+              <column datatype='real' name='Dec' />
+              <column datatype='string' name='Table Name' />
+            </columns>
+            <relation connection='textscan.1oe7thv0oml4w3183xvh202pu0pe' name='BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv' table='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm#csv]' type='table'>
+              <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                <column datatype='integer' name='Year' ordinal='0' />
+                <column datatype='real' name='Jan' ordinal='1' />
+                <column datatype='real' name='Feb' ordinal='2' />
+                <column datatype='real' name='Mar' ordinal='3' />
+                <column datatype='real' name='Apr' ordinal='4' />
+                <column datatype='real' name='May' ordinal='5' />
+                <column datatype='real' name='Jun' ordinal='6' />
+                <column datatype='real' name='Jul' ordinal='7' />
+                <column datatype='string' name='Aug' ordinal='8' />
+                <column datatype='real' name='Sep' ordinal='9' />
+                <column datatype='real' name='Oct' ordinal='10' />
+                <column datatype='real' name='Nov' ordinal='11' />
+                <column datatype='real' name='Dec' ordinal='12' />
+              </columns>
+            </relation>
+            <relation connection='textscan.1oe7thv0oml4w3183xvh202pu0pe' name='BLS CES 2015-2025 Data for Washington - WAInformation.csv' table='[BLS CES 2015-2025 Data for Washington - WAInformation#csv]' type='table'>
+              <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                <column datatype='integer' name='Year' ordinal='0' />
+                <column datatype='real' name='Jan' ordinal='1' />
+                <column datatype='real' name='Feb' ordinal='2' />
+                <column datatype='real' name='Mar' ordinal='3' />
+                <column datatype='real' name='Apr' ordinal='4' />
+                <column datatype='real' name='May' ordinal='5' />
+                <column datatype='real' name='Jun' ordinal='6' />
+                <column datatype='real' name='Jul' ordinal='7' />
+                <column datatype='string' name='Aug' ordinal='8' />
+                <column datatype='real' name='Sep' ordinal='9' />
+                <column datatype='real' name='Oct' ordinal='10' />
+                <column datatype='real' name='Nov' ordinal='11' />
+                <column datatype='real' name='Dec' ordinal='12' />
+              </columns>
+            </relation>
+            <relation connection='textscan.1oe7thv0oml4w3183xvh202pu0pe' name='BLS CES 2015-2025 Data for Washington - WAProfBusiness.csv' table='[BLS CES 2015-2025 Data for Washington - WAProfBusiness#csv]' type='table'>
+              <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                <column datatype='integer' name='Year' ordinal='0' />
+                <column datatype='real' name='Jan' ordinal='1' />
+                <column datatype='real' name='Feb' ordinal='2' />
+                <column datatype='real' name='Mar' ordinal='3' />
+                <column datatype='real' name='Apr' ordinal='4' />
+                <column datatype='real' name='May' ordinal='5' />
+                <column datatype='real' name='Jun' ordinal='6' />
+                <column datatype='real' name='Jul' ordinal='7' />
+                <column datatype='string' name='Aug' ordinal='8' />
+                <column datatype='real' name='Sep' ordinal='9' />
+                <column datatype='real' name='Oct' ordinal='10' />
+                <column datatype='real' name='Nov' ordinal='11' />
+                <column datatype='real' name='Dec' ordinal='12' />
+              </columns>
+            </relation>
+          </relation>
+        </relation>
+        <cols>
+          <map key='[Pivot Field Names (Pivot2)]' value='[Pivot2].[Pivot Field Names]' />
+          <map key='[Pivot Field Values (Pivot2)]' value='[Pivot2].[Pivot Field Values]' />
+          <map key='[Table Name]' value='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Table Name]' />
+          <map key='[Year]' value='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Year]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Year</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Year]</local-name>
+            <parent-name>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+]</parent-name>
+            <remote-alias>Year</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Table Name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Table Name]</local-name>
+            <parent-name>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+]</parent-name>
+            <remote-alias>Table Name</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Pivot Field Names</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Pivot Field Names (Pivot2)]</local-name>
+            <parent-name>[Pivot2]</parent-name>
+            <remote-alias>Pivot Field Names</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Pivot Field Values</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Pivot Field Values (Pivot2)]</local-name>
+            <parent-name>[Pivot2]</parent-name>
+            <remote-alias>Pivot Field Values</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Industry' datatype='string' name='[Calculation_897342231186493445]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF ENDSWITH([Table Name], &quot;TotalNonfarm.csv&quot;) THEN &quot;Total Nonfarm&quot;&#10;ELSEIF ENDSWITH([Table Name], &quot;ProfBusiness.csv&quot;) THEN &quot;Professional &amp; Business Services&quot;&#10;ELSEIF ENDSWITH([Table Name], &quot;Information.csv&quot;) THEN &quot;Information&quot;&#10;END' />
+      </column>
+      <column caption='Month' datatype='string' name='[Pivot Field Names (Pivot2)]' role='dimension' type='nominal' />
+      <column caption='Employment' datatype='string' name='[Pivot Field Values (Pivot2)]' role='dimension' type='nominal' />
+      <column caption='CES_WA_TotalNonFarm' datatype='table' name='[__tableau_internal_object_id__].[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]' role='measure' type='quantitative' />
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='false' object-id='' units='records'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='/var/folders/l2/vhsth681501c7_jg9dk_ktbw0000gn/T/tableau-temp/#TableauTemp_07a2doo029y76c1grff5w03mo7pj.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='11/12/2025 07:53:08 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <cols>
+            <map key='[Pivot Field Names (Pivot2)]' value='[Extract].[Pivot Field Names]' />
+            <map key='[Pivot Field Values (Pivot2)]' value='[Extract].[Pivot Field Values]' />
+            <map key='[Table Name]' value='[Extract].[Table Name]' />
+            <map key='[Year]' value='[Extract].[Year]' />
+          </cols>
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>Year</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[Year]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Year</remote-alias>
+              <ordinal>0</ordinal>
+              <family>BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>11</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Table Name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Table Name]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Table Name</remote-alias>
+              <ordinal>1</ordinal>
+              <family>BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Pivot Field Names</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Pivot Field Names (Pivot2)]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Pivot Field Names</remote-alias>
+              <ordinal>2</ordinal>
+              <family>Pivot2</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>12</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='binary' />
+              <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Pivot Field Values</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[Pivot Field Values (Pivot2)]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Pivot Field Values</remote-alias>
+              <ordinal>3</ordinal>
+              <family>Pivot2</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>362</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='binary' />
+              <object-id>[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' rowDisplayCount='400' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <field-sort-info field-sort-order-type='custom-order'>
+        <field-sort-custom-order field='Year' />
+        <field-sort-custom-order field='Pivot Field Names' />
+        <field-sort-custom-order field='Pivot Field Values' />
+        <field-sort-custom-order field='Calculation_897342231183622145' />
+        <field-sort-custom-order field='Geometry (generated)' />
+        <field-sort-custom-order field='Latitude (generated)' />
+        <field-sort-custom-order field='Longitude (generated)' />
+        <field-sort-custom-order field=':Measure Names' />
+        <field-sort-custom-order field='Multiple Values' />
+      </field-sort-info>
+      <object-graph>
+        <objects>
+          <object caption='CES_WA_TotalNonFarm' id='BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv_43A79AF969DE48A182BA2DE989604A1F'>
+            <properties context=''>
+              <relation name='Pivot2' type='pivot'>
+                <columns>
+                  <column datatype='string' name='Pivot Field Names' />
+                  <column datatype='string' name='Pivot Field Values' />
+                </columns>
+                <tag name='Pivot Field Names'>
+                  <value name='[Apr]' />
+                  <value name='[Aug]' />
+                  <value name='[Dec]' />
+                  <value name='[Feb]' />
+                  <value name='[Jan]' />
+                  <value name='[Jul]' />
+                  <value name='[Jun]' />
+                  <value name='[Mar]' />
+                  <value name='[May]' />
+                  <value name='[Nov]' />
+                  <value name='[Oct]' />
+                  <value name='[Sep]' />
+                </tag>
+                <groups>
+                  <group name='Pivot Field Values'>
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Apr]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Aug]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Dec]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Feb]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Jan]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Jul]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Jun]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Mar]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[May]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Nov]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Oct]' />
+                    <field name='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+].[Sep]' />
+                  </group>
+                </groups>
+                <relation all='true' name='BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv+' type='union'>
+                  <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                    <column datatype='integer' name='Year' />
+                    <column datatype='real' name='Jan' />
+                    <column datatype='real' name='Feb' />
+                    <column datatype='real' name='Mar' />
+                    <column datatype='real' name='Apr' />
+                    <column datatype='real' name='May' />
+                    <column datatype='real' name='Jun' />
+                    <column datatype='real' name='Jul' />
+                    <column datatype='string' name='Aug' />
+                    <column datatype='real' name='Sep' />
+                    <column datatype='real' name='Oct' />
+                    <column datatype='real' name='Nov' />
+                    <column datatype='real' name='Dec' />
+                    <column datatype='string' name='Table Name' />
+                  </columns>
+                  <relation connection='textscan.1oe7thv0oml4w3183xvh202pu0pe' name='BLS CES 2015-2025 Data for Washington - WATotalNonFarm.csv' table='[BLS CES 2015-2025 Data for Washington - WATotalNonFarm#csv]' type='table'>
+                    <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                      <column datatype='integer' name='Year' ordinal='0' />
+                      <column datatype='real' name='Jan' ordinal='1' />
+                      <column datatype='real' name='Feb' ordinal='2' />
+                      <column datatype='real' name='Mar' ordinal='3' />
+                      <column datatype='real' name='Apr' ordinal='4' />
+                      <column datatype='real' name='May' ordinal='5' />
+                      <column datatype='real' name='Jun' ordinal='6' />
+                      <column datatype='real' name='Jul' ordinal='7' />
+                      <column datatype='string' name='Aug' ordinal='8' />
+                      <column datatype='real' name='Sep' ordinal='9' />
+                      <column datatype='real' name='Oct' ordinal='10' />
+                      <column datatype='real' name='Nov' ordinal='11' />
+                      <column datatype='real' name='Dec' ordinal='12' />
+                    </columns>
+                  </relation>
+                  <relation connection='textscan.1oe7thv0oml4w3183xvh202pu0pe' name='BLS CES 2015-2025 Data for Washington - WAInformation.csv' table='[BLS CES 2015-2025 Data for Washington - WAInformation#csv]' type='table'>
+                    <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                      <column datatype='integer' name='Year' ordinal='0' />
+                      <column datatype='real' name='Jan' ordinal='1' />
+                      <column datatype='real' name='Feb' ordinal='2' />
+                      <column datatype='real' name='Mar' ordinal='3' />
+                      <column datatype='real' name='Apr' ordinal='4' />
+                      <column datatype='real' name='May' ordinal='5' />
+                      <column datatype='real' name='Jun' ordinal='6' />
+                      <column datatype='real' name='Jul' ordinal='7' />
+                      <column datatype='string' name='Aug' ordinal='8' />
+                      <column datatype='real' name='Sep' ordinal='9' />
+                      <column datatype='real' name='Oct' ordinal='10' />
+                      <column datatype='real' name='Nov' ordinal='11' />
+                      <column datatype='real' name='Dec' ordinal='12' />
+                    </columns>
+                  </relation>
+                  <relation connection='textscan.1oe7thv0oml4w3183xvh202pu0pe' name='BLS CES 2015-2025 Data for Washington - WAProfBusiness.csv' table='[BLS CES 2015-2025 Data for Washington - WAProfBusiness#csv]' type='table'>
+                    <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                      <column datatype='integer' name='Year' ordinal='0' />
+                      <column datatype='real' name='Jan' ordinal='1' />
+                      <column datatype='real' name='Feb' ordinal='2' />
+                      <column datatype='real' name='Mar' ordinal='3' />
+                      <column datatype='real' name='Apr' ordinal='4' />
+                      <column datatype='real' name='May' ordinal='5' />
+                      <column datatype='real' name='Jun' ordinal='6' />
+                      <column datatype='real' name='Jul' ordinal='7' />
+                      <column datatype='string' name='Aug' ordinal='8' />
+                      <column datatype='real' name='Sep' ordinal='9' />
+                      <column datatype='real' name='Oct' ordinal='10' />
+                      <column datatype='real' name='Nov' ordinal='11' />
+                      <column datatype='real' name='Dec' ordinal='12' />
+                    </columns>
+                  </relation>
+                </relation>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{DF206747-2A68-46CA-A702-276C7EF1B6E3}' />
+    </worksheet>
+  </worksheets>
+  <windows source-height='30'>
+    <window class='worksheet' maximized='true' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{E631A631-02B1-4021-BE98-757DE9AB073B}' />
+    </window>
+  </windows>
+</workbook>
